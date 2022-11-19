@@ -20,7 +20,12 @@ export const fetchingByName = async query => {
   const response = await axios.get('search/movie', {
     params: { ...urlParams.params, query },
   });
-  return response.data.results;
+
+  if (response.data.total_results === 0) {
+    return Promise.reject(new Error(`Ooops! No images with ${query}`));
+  } else {
+    return response.data.results;
+  }
 };
 
 export const fetchingById = async id => {
@@ -30,12 +35,22 @@ export const fetchingById = async id => {
 
 export const fetchingCast = async id => {
   const response = await axios.get(`movie/${id}/credits`, urlParams);
-  return response.data.cast;
+
+  if (response.data.cast.length === 0) {
+    return Promise.reject(new Error(`Ooops! No cast was found.`));
+  } else {
+    return response.data.cast;
+  }
 };
 
 export const fetchingReviews = async id => {
   const response = await axios.get(`movie/${id}/reviews`, urlParams);
-  return response.data.results;
+
+  if (response.data.total_results === 0) {
+    return Promise.reject(new Error(`Ooops! No reviews was found.`));
+  } else {
+    return response.data.results;
+  }
 };
 
 export const fetchGenres = async () => {
