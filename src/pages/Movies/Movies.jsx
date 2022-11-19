@@ -5,11 +5,14 @@ import { Box } from 'components/Box/Box';
 import { fetchingByName } from 'services/moviesApi';
 import SearchMovie from 'components/SearchMovie';
 import MoviesList from 'components/MoviesList';
+import LoadMore from 'components/LoadMore';
 import { Status } from 'constants/status';
 import Error from 'components/Error/CommonError';
 import CastReviewsPending from 'components/Pending/CastReviewsPending';
 
 const Movies = () => {
+  const [page, setPage] = useState(0);
+  const [total, setTotal] = useState(0);
   const [status, setStatus] = useState(Status.IDLE);
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,8 +25,13 @@ const Movies = () => {
       setStatus(Status.PENDING);
 
       try {
-        const movies = await fetchingByName(query);
-        setSearchedMovies(movies);
+        if (page === 0) {
+          setPage(1);
+          return;
+        }
+        const movies = await fetchingByName(query, page);
+        setSearchedMovies(prevState => [...prevState, ...movies.results]);
+        setTotal(movies.total);
         setStatus(Status.RESOLVED);
       } catch (error) {
         setStatus(Status.REJECTED);
@@ -32,10 +40,13 @@ const Movies = () => {
     }
 
     setQueriedMovies();
-  }, [query]);
+  }, [query, page]);
 
   const changeQuery = value => {
     setSearchParams(value !== '' ? { query: value } : {});
+    setSearchedMovies([]);
+    setPage(1);
+    setTotal(0);
   };
 
   return (
@@ -43,14 +54,15 @@ const Movies = () => {
       <Box as="main">
         <Box as="section" textAlign="center" px={4} py={5}>
           <SearchMovie onSubmit={changeQuery} />
+          <Box py={5}>
+            <MoviesList moviesArray={searchedMovies} />
+          </Box>
           {status === 'pending' && <CastReviewsPending />}
-          {status === 'resolved' && (
-            <Box pt={5}>
-              {searchedMovies.length > 0 && (
-                <MoviesList moviesArray={searchedMovies} />
-              )}
-            </Box>
-          )}
+          {searchedMovies &&
+            status === 'resolved' &&
+            searchedMovies.length < total && (
+              <LoadMore onClick={() => setPage(prevState => prevState + 1)} />
+            )}
           {status === 'rejected' && <Error />}
         </Box>
       </Box>

@@ -99,7 +99,7 @@ const MovieDetails = () => {
                 <Ul>
                   <Box as="li" display="flex" alignItems="baseline" gridGap={3}>
                     <MoviePar>Rating:</MoviePar>
-                    <MovieDesc>{vote}</MovieDesc>
+                    <MovieDesc>{vote || `vote not found`}</MovieDesc>
                   </Box>
                   <Box
                     as="li"
@@ -108,7 +108,7 @@ const MovieDetails = () => {
                     gridGap={3}
                   >
                     <MoviePar>Release date:</MoviePar>
-                    <MovieDesc>{date}</MovieDesc>
+                    <MovieDesc>{date || `date not found`}</MovieDesc>
                   </Box>
                   <Box
                     as="li"
@@ -117,7 +117,7 @@ const MovieDetails = () => {
                     gridGap={3}
                   >
                     <MoviePar>Tagline:</MoviePar>
-                    <MovieDesc>{tagline || `—`}</MovieDesc>
+                    <MovieDesc>{tagline || `tagline not found`}</MovieDesc>
                   </Box>
                   <Box
                     as="li"
@@ -126,7 +126,7 @@ const MovieDetails = () => {
                     gridGap={3}
                   >
                     <MoviePar>Runtime:</MoviePar>
-                    <MovieDesc>{minutes || `—`}</MovieDesc>
+                    <MovieDesc>{minutes || `runtime not found`}</MovieDesc>
                   </Box>
                   <Box
                     as="li"
@@ -135,7 +135,7 @@ const MovieDetails = () => {
                     gridGap={3}
                   >
                     <MoviePar>Genre:</MoviePar>
-                    <MovieDesc>{genres || 'Genre not found'}</MovieDesc>
+                    <MovieDesc>{genres || 'genre not found'}</MovieDesc>
                   </Box>
                   <Box
                     as="li"
@@ -144,7 +144,7 @@ const MovieDetails = () => {
                     gridGap={3}
                   >
                     <MoviePar>Companies:</MoviePar>
-                    <MovieDesc>{companies}</MovieDesc>;
+                    <MovieDesc>{companies || `companies not found`}</MovieDesc>;
                   </Box>
                   <Box
                     as="li"
@@ -154,9 +154,7 @@ const MovieDetails = () => {
                     flexDirection="column"
                   >
                     <MoviePar>Description:</MoviePar>
-                    <MovieText>
-                      {overview || `No description was found`}
-                    </MovieText>
+                    <MovieText>{overview || `description not found`}</MovieText>
                   </Box>
                 </Ul>
                 <Box display="flex" gridGap={6}>

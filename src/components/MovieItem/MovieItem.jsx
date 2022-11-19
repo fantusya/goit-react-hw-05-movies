@@ -9,7 +9,9 @@ const MovieItem = ({ movie: { title, poster_path, name } }) => {
     : (imagePath = `${BASE_POSTER_URL}/${poster_path}`);
   return (
     <>
-      <MovieImg src={imagePath} alt={`${title || name}`} loading="lazy" />
+      <div>
+        <MovieImg src={imagePath} alt={`${title || name}`} loading="lazy" />
+      </div>
       <MovieTitleContainer>
         <MovieTitle>{title || name}</MovieTitle>
       </MovieTitleContainer>

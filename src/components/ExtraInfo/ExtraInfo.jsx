@@ -17,16 +17,20 @@ const ExtraInfo = ({ movie: { vote_average, release_date, genre_ids } }) => {
       <Box as="ul" display="flex" flexDirection="column" gridGap={5} mb={6}>
         <ExtraInfoItem>
           <ExtraInfoPar>Vote:</ExtraInfoPar>
-          <ExtraInfoValue>{setReleaseVote(vote_average)};</ExtraInfoValue>
+          <ExtraInfoValue>
+            {setReleaseVote(vote_average) || `no vote`};
+          </ExtraInfoValue>
         </ExtraInfoItem>
         <ExtraInfoItem>
           <ExtraInfoPar>Date of release:</ExtraInfoPar>
-          <ExtraInfoValue>{setReleaseDate(release_date)};</ExtraInfoValue>
+          <ExtraInfoValue>
+            {setReleaseDate(release_date) || `no date`};
+          </ExtraInfoValue>
         </ExtraInfoItem>
         <ExtraInfoItem>
-          <ExtraInfoPar>Genres:</ExtraInfoPar>
+          <ExtraInfoPar>Genre:</ExtraInfoPar>
           <ExtraInfoValue>
-            {gettingGenresListForCard(genre_ids) || 'Genres not found'};
+            {gettingGenresListForCard(genre_ids) || 'no genre'};
           </ExtraInfoValue>
         </ExtraInfoItem>
       </Box>
