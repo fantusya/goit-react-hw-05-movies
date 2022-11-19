@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import { Form, Input, SearchButton, ErrorMessage } from './SearchMovie.styled';
