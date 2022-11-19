@@ -53,4 +53,6 @@ export const ErrorMessage = styled.p`
   font-weight: ${p => p.theme.fontWeights.bold};
 
   color: ${p => p.theme.colors.header};
+
+  pointer-events: none;
 `;

@@ -11,13 +11,15 @@ export const MovieImg = styled.img`
 `;
 
 export const MovieTitleContainer = styled.div`
+  padding: ${p => p.theme.space[2]}px;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  height: 95px;
+  /* height: 95px; */
+  height: auto;
 
-  background-color: ${p => p.theme.colors.bgMovie};
+  /* background-color: ${p => p.theme.colors.bgMovie}; */
 `;
 
 export const MovieTitle = styled.h2`
@@ -28,5 +30,5 @@ export const MovieTitle = styled.h2`
 
   color: ${p => p.theme.colors.border};
 
-  text-shadow: 1px 0px 5px ${p => p.theme.colors.black};
+  text-shadow: 1px 0px 5px ${p => p.theme.colors.red};
 `;

@@ -37,5 +37,7 @@ export const MovieLink = styled(NavLink)`
   height: 100%;
   width: 100%;
 
+  background-color: ${p => p.theme.colors.bgMovie};
+
   text-decoration: none;
 `;
