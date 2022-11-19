@@ -2,19 +2,25 @@ import styled from 'styled-components';
 import { GiClick } from 'react-icons/gi';
 
 export const ExtraInfoContainer = styled.div`
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  left: 0;
   display: block;
+  position: absolute;
+  top: ${p => p.theme.space[0]};
+  left: ${p => p.theme.space[0]};
+
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  border-radius: ${p => p.theme.radii.normal};
-  transition: opacity ${p => p.theme.transition.main};
-  cursor: pointer;
+
   padding: ${p => p.theme.space[5]}px;
   padding-top: ${p => p.theme.space[6]}px;
+
+  border-radius: ${p => p.theme.radii.normal};
+
+  background-color: ${p => p.theme.colors.extraInfoBg};
+  opacity: 0;
+
+  cursor: pointer;
+
+  transition: opacity ${p => p.theme.transition.main};
 `;
 
 export const ExtraInfoItem = styled.li`
@@ -29,11 +35,13 @@ export const ExtraInfoPar = styled.p`
   font-size: ${p => p.theme.fontSizes.l};
   font-weight: ${p => p.theme.fontWeights.bold};
   font-style: italic;
+
   color: ${p => p.theme.colors.accent};
 `;
 
 export const ExtraInfoValue = styled.p`
   font-size: ${p => p.theme.fontSizes.m};
+
   color: ${p => p.theme.colors.white};
 `;
 
