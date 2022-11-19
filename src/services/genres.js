@@ -10,9 +10,11 @@ export async function gettingGenres() {
 }
 
 export function gettingDetailedGenresList(array) {
+  const filteredArray = array.map(el => el.id);
+
   let genre_names = '';
 
-  for (const id of array) {
+  for (const id of filteredArray) {
     const genre_name = localStorage.getItem(`genre_${id}`);
     if (!genre_name) {
       continue;
