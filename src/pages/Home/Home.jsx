@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react';
-// import { NavLink } from 'react-router-dom';
 import MoviesList from 'components/MoviesList/MoviesList';
 import { fetchTrendingMovies } from 'services/moviesApi';
 import { Heading } from './Home.styled';
-import { BsFillPatchExclamationFill } from 'react-icons/bs';
 import { Box } from 'components/Box/Box';
 import { Status } from 'constants/status';
-import Pending from 'components/Pending';
-
-// import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import Pending from 'components/Pending/CommonPending';
+import Error from 'components/Error/CommonError';
 
 const Home = () => {
   const [status, setStatus] = useState(Status.IDLE);
@@ -29,23 +26,29 @@ const Home = () => {
         setStatus(Status.REJECTED);
       }
     }
+
     getTrendingMovies();
   }, []);
 
   return (
     <>
       {status === 'pending' && <Pending />}
-      <Box as="main" px={4} py={5}>
-        <Box as="section">
-          <Box display="flex" alignItems="center" gridGap={4}>
-            {/* <BsFillPatchExclamationFill size={55} color="white" /> */}
-            <Heading>Trending today</Heading>
+      {status === 'resolved' && (
+        <Box as="main" px={4} py={5}>
+          <Box as="section">
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              gridGap={4}
+            >
+              <Heading>Trending today</Heading>
+            </Box>
+            <MoviesList moviesArray={trendingMovies} />{' '}
           </Box>
-
-          {status === 'resolved' && <MoviesList moviesArray={trendingMovies} />}
-          {status === 'rejected' && <p>OOOPS ERROR</p>}
         </Box>
-      </Box>
+      )}
+      {status === 'rejected' && <Error />}
     </>
   );
 };

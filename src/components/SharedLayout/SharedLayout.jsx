@@ -4,6 +4,7 @@ import { NavLink, Text, Icon } from './SharedLayout.styled';
 import { Box } from 'components/Box/Box';
 import { gettingGenres } from 'services/genres';
 import { Link } from 'react-router-dom';
+import CommonPending from 'components/Pending/CommonPending';
 
 const SharedLayout = () => {
   gettingGenres();
@@ -37,7 +38,7 @@ const SharedLayout = () => {
         </Box>
       </Box>
 
-      <Suspense fallback={<h1>LOADING</h1>}>
+      <Suspense fallback={<CommonPending />}>
         <Outlet />
       </Suspense>
     </>

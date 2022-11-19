@@ -1,17 +1,15 @@
 import PropTypes from 'prop-types';
-
+import { BASE_POSTER_URL, FALLBACK_IMAGE_PATH } from 'constants/urls';
 import { MovieImg, MovieTitleContainer, MovieTitle } from './MovieItem.styled';
-
-const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
 
 const MovieItem = ({ movie: { title, poster_path, name } }) => {
   let imagePath = ``;
   !poster_path
-    ? (imagePath = `https://raw.githubusercontent.com/marvall/filmoteka/main/src/images/no-poster.png`)
+    ? (imagePath = FALLBACK_IMAGE_PATH)
     : (imagePath = `${BASE_POSTER_URL}/${poster_path}`);
   return (
     <>
-      <MovieImg src={imagePath} alt={`${title || name}`} />
+      <MovieImg src={imagePath} alt={`${title || name}`} loading="lazy" />
       <MovieTitleContainer>
         <MovieTitle>{title || name}</MovieTitle>
       </MovieTitleContainer>

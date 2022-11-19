@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Form, Input, SearchButton, ErrorMessage } from './SearchMovie.styled';
 import { MdMovieFilter } from 'react-icons/md';
 import { Box } from 'components/Box/Box';
+
 const SearchMovie = ({ onSubmit }) => {
   const {
     register,
@@ -12,20 +13,6 @@ const SearchMovie = ({ onSubmit }) => {
   } = useForm({ defaultValues: { inputMovie: '' } });
 
   const formHandleSubmit = ({ inputMovie }) => {
-    // e.preventDefault();
-    // const formInput = e.currentTarget;
-
-    // if (formInput.elements.inputMovie.value.trim() === '') {
-    //   alert('Type something to search!');
-    //   return;
-    // }
-    // console.log(inputMovie);
-    // if (inputMovie.trim() === '') {
-    //   alert('Type something to search!');
-    //   return;
-    // }
-
-    // onSubmit(formInput.elements.inputMovie.value);
     onSubmit(inputMovie);
     reset();
   };
