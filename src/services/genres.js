@@ -9,7 +9,7 @@ export async function gettingGenres() {
   }
 }
 
-export function gettingGenresListForModal(array) {
+export function gettingDetailedGenresList(array) {
   let genre_names = '';
 
   for (const id of array) {
