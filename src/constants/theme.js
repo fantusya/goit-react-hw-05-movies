@@ -1,15 +1,20 @@
 export const theme = {
   colors: {
     white: '#fff',
+    black: '#000',
     red: '#EF1111 ',
     accent: '#ff7aa8',
     header: '#081229',
+    extraInfoBg: 'rgba(0, 0, 0, 0.8)',
+    backdrop: '#081229e6',
     border: '#FFC0CB',
     movieTitle: '#ff91a4',
     bgMovie: 'rgba(255, 192, 203, 0.8)',
     bgInput: 'rgba(255, 192, 203, 0.5)',
     secondary: '#FF1493',
     text: '#b5217e',
+    detailsTitleShadow: '#e3b4b4',
+    mainTitleShadow: 'rgba(221, 56, 85, 0.8)',
     transparent: 'transparent',
   },
   space: [0, 2, 4, 8, 16, 32, 64, 128, 256, 512],
@@ -41,6 +46,7 @@ export const theme = {
   },
   letterSpacings: {
     normal: '0.03em',
+    big: '0.15em',
   },
   borders: {
     none: 'none',
@@ -49,6 +55,7 @@ export const theme = {
   },
   radii: {
     none: '0',
+    tiny: '5px',
     normal: '20px',
     round: '50%',
   },
