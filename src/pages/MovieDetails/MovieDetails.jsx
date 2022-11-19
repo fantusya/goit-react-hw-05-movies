@@ -29,13 +29,9 @@ const MovieDetails = () => {
   const [status, setStatus] = useState(Status.IDLE);
   const { movieId } = useParams();
   const [movie, setMovie] = useState({});
-  const [genres, setGenres] = useState([]);
-  const [minutes, setMinutes] = useState('');
-  const [vote, setVote] = useState('');
-  const [date, setDate] = useState('');
-  const [companies, setCompanies] = useState([]);
 
   const location = useLocation();
+  const backLinkHref = location?.state?.from ?? '/movies';
   // console.log('FROM CHILD, DETAILS', location);
 
   useEffect(() => {
@@ -47,18 +43,6 @@ const MovieDetails = () => {
       try {
         const movieById = await fetchingById(movieId);
         setMovie(movieById);
-
-        const filteredGenres = movieById.genres.map(el => el.id);
-        setGenres(gettingDetailedGenresList(filteredGenres));
-
-        setMinutes(toHoursAndMinutes(movieById.runtime));
-
-        setVote(setReleaseVote(movieById.vote_average));
-
-        setDate(setReleaseDate(movieById.release_date));
-
-        setCompanies(makeCompaniesArray(movieById.production_companies));
-
         setStatus(Status.RESOLVED);
       } catch (error) {
         setStatus(Status.REJECTED);
@@ -69,8 +53,19 @@ const MovieDetails = () => {
     setMovieById();
   }, [movieId]);
 
-  const backLinkHref = location?.state?.from ?? '/movies';
-  const { title, name, overview, tagline, poster_path, backdrop_path } = movie;
+  const {
+    title,
+    name,
+    overview,
+    tagline,
+    poster_path,
+    backdrop_path,
+    vote_average,
+    runtime,
+    release_date,
+    production_companies,
+    genres,
+  } = movie;
 
   let imagePath = ``;
   !poster_path
@@ -99,7 +94,9 @@ const MovieDetails = () => {
                 <Ul>
                   <Box as="li" display="flex" alignItems="baseline" gridGap={3}>
                     <MoviePar>Rating:</MoviePar>
-                    <MovieDesc>{vote || `vote not found`}</MovieDesc>
+                    <MovieDesc>
+                      {setReleaseVote(vote_average) || `vote not found`}
+                    </MovieDesc>
                   </Box>
                   <Box
                     as="li"
@@ -108,7 +105,9 @@ const MovieDetails = () => {
                     gridGap={3}
                   >
                     <MoviePar>Release date:</MoviePar>
-                    <MovieDesc>{date || `date not found`}</MovieDesc>
+                    <MovieDesc>
+                      {setReleaseDate(release_date) || `date not found`}
+                    </MovieDesc>
                   </Box>
                   <Box
                     as="li"
@@ -126,7 +125,9 @@ const MovieDetails = () => {
                     gridGap={3}
                   >
                     <MoviePar>Runtime:</MoviePar>
-                    <MovieDesc>{minutes || `runtime not found`}</MovieDesc>
+                    <MovieDesc>
+                      {toHoursAndMinutes(runtime) || `runtime not found`}
+                    </MovieDesc>
                   </Box>
                   <Box
                     as="li"
@@ -135,7 +136,9 @@ const MovieDetails = () => {
                     gridGap={3}
                   >
                     <MoviePar>Genre:</MoviePar>
-                    <MovieDesc>{genres || 'genre not found'}</MovieDesc>
+                    <MovieDesc>
+                      {gettingDetailedGenresList(genres) || 'genre not found'}
+                    </MovieDesc>
                   </Box>
                   <Box
                     as="li"
@@ -144,7 +147,11 @@ const MovieDetails = () => {
                     gridGap={3}
                   >
                     <MoviePar>Companies:</MoviePar>
-                    <MovieDesc>{companies || `companies not found`}</MovieDesc>;
+                    <MovieDesc>
+                      {makeCompaniesArray(production_companies) ||
+                        `companies not found`}
+                    </MovieDesc>
+                    ;
                   </Box>
                   <Box
                     as="li"
