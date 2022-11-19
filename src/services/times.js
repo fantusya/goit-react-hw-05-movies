@@ -1,4 +1,7 @@
 export function toHoursAndMinutes(totalMinutes) {
+  if (totalMinutes === 0) {
+    return null;
+  }
   const minutes = totalMinutes % 60;
   const hours = Math.floor(totalMinutes / 60);
 

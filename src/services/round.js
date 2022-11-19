@@ -7,8 +7,8 @@ export function setReleaseDate(releaseDate, firstDate) {
 }
 
 export function setReleaseVote(vote) {
-  if (!vote) {
-    return '—';
+  if (vote * 1 === 0) {
+    return null;
   }
   return vote.toFixed(1);
 }
