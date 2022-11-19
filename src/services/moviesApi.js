@@ -1,8 +1,8 @@
 import axios from 'axios';
 
+import { BASE_GENRE_URL, api_key } from 'constants/urls';
+
 axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
-const BASE_GENRE_URL = 'https://api.themoviedb.org/3/genre/movie/list';
-const api_key = `e09f06c48afcb3ebfd8a25b0b6965d1e`;
 
 const urlParams = {
   params: {
@@ -11,20 +11,26 @@ const urlParams = {
   },
 };
 
-export const fetchTrendingMovies = async () => {
-  const response = await axios.get('trending/movie/day', urlParams);
-  return response.data.results;
+export const fetchTrendingMovies = async page => {
+  const response = await axios.get('trending/movie/day', {
+    params: { ...urlParams.params, page },
+  });
+  const total = response.data.total_results;
+  const results = response.data.results;
+  return { total, results };
 };
 
-export const fetchingByName = async query => {
+export const fetchingByName = async (query, page) => {
   const response = await axios.get('search/movie', {
-    params: { ...urlParams.params, query },
+    params: { ...urlParams.params, query, page },
   });
 
   if (response.data.total_results === 0) {
     return Promise.reject(new Error(`Ooops! No images with ${query}`));
   } else {
-    return response.data.results;
+    const total = response.data.total_results;
+    const results = response.data.results;
+    return { total, results };
   }
 };
 
